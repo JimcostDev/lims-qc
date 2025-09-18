@@ -16,8 +16,7 @@ Plantilla / repositorio inicial para el desarrollo de un SGC/LIMS alineado con *
 ---
 
 ## 🧩 Stack propuesto
-- **Backend:** FastAPI (Python)  
-- **ORM / Models:** SQLModel (Postgres) *o* ODM (si eliges Mongo full)  
+- **Backend:** FastAPI (Python)   
 - **DB principal:** PostgreSQL (recomendado)  
 - **Audit logs / events:** MongoDB (opcional o complemento)  
 - **Frontend:** Astro + React + Tailwind *o* React + Vite + Tailwind  
@@ -25,39 +24,15 @@ Plantilla / repositorio inicial para el desarrollo de un SGC/LIMS alineado con *
 - **Contenerización:** Docker / docker-compose  
 - **Tests:** pytest, pytest-asyncio
 
-> Nota: Si tu equipo prefiere MongoDB, se puede implementar todo en Mongo: viable para MVP pero exigiría disciplina (transacciones, validaciones JSON Schema, índices, políticas de auditoría).
+> Nota: Se puede implementar todo en Mongo: viable para MVP pero exigiría disciplina (transacciones, validaciones JSON Schema, índices, políticas de auditoría).
 
 ---
 
-## Estructura sugerida del repo
-```
-.
-├─ api/                 # routers / endpoints
-├─ core/                # configuración, database init
-├─ models/              # SQLModel / ODM models
-├─ repositories/        # capa persistencia
-├─ services/            # lógica de negocio
-├─ utils/               # utilidades (storage, qr, etc.)
-├─ assets/              # archivos estáticos
-├─ tests/               # pruebas unitarias / integración
-├─ docker-compose.yml
-├─ requirements.txt
-└─ README.md
-```
-
----
-
-## ⚙️ Requisitos previos
-- Python 3.11+  
-- Docker & docker-compose (recomendado para dev)  
-- (Opcional) Node.js para frontend
-
----
 
 ## 🛠️ Instalación local (rápida)
 ```bash
 # clonar
-git clone https://github.com/<tu-org>/lims-qc.git
+git clone https://github.com/JimcostDev/lims-qc.git
 cd lims-qc
 
 # crear venv
@@ -71,65 +46,6 @@ pip install -r requirements.txt
 
 ---
 
-## ⚙️ Variables de entorno (ejemplo)
-Crea `core/config.env` con (MVP):
-
-```env
-# DB engine: "mongodb" or "postgresql"
-DB_ENGINE=mongodb
-
-# Mongo
-MONGODB_URI_DEV_LAB_TEST=mongodb://user:pass@localhost:27017
-MONGODB_NAME=lims_qc_dev
-
-# Postgres (si usas postgres)
-POSTGRES_URI=postgresql+asyncpg://user:pass@localhost:5432/lims_qc_dev
-
-# JWT
-JWT_SECRET_KEY=supersecreto
-JWT_ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=60
-
-# App
-PROJECT_NAME=LIMS-QC
-API_PREFIX=/api/v1
-CORS_ORIGINS=http://localhost:3000
-```
-
----
-
-## 🚀 Levantar con Docker (recomendado)
-Hay un `docker-compose.yml` ejemplo que levanta Postgres + Mongo + app.  
-```bash
-docker-compose up --build
-# luego
-# acceder: http://localhost:8000/docs
-```
-
----
-
-## Ejecutar la app en dev
-```bash
-# activar venv
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-# OpenAPI: http://localhost:8000/api/v1/openapi.json
-# Docs: http://localhost:8000/docs
-```
-
----
-
-## Migraciones (Postgres)
-Si usas SQLModel + Alembic:
-```bash
-# inicializar alembic (si no existe)
-alembic init alembic
-# generar
-alembic revision --autogenerate -m "create models"
-# aplicar
-alembic upgrade head
-```
-
----
 
 ## 🔐 Autenticación y RBAC
 - Sistema con JWT (python-jose), rutas protegidas por dependencias.  
@@ -152,17 +68,6 @@ pytest -q
 pytest -q --disable-warnings
 ```
 
-Asegúrate de configurar fixtures para DB (usar instancias docker o bases de datos temporales).
-
----
-
-## 📦 CI / CD
-- GitHub Actions sugerido:
-  - Test matrix (py versions)
-  - Linting (ruff/flake8)
-  - Build + push image (si se usa)
-- Deploy: Render / Railway / VPS + Docker
-
 ---
 
 ## 📋 Roadmap (resumido)
@@ -180,14 +85,4 @@ Asegúrate de configurar fixtures para DB (usar instancias docker o bases de dat
 3. Tests y lint antes de PR.  
 4. PR con descripción, screenshots, y referencias a issues.
 
----
 
-## 📞 Contacto / Créditos
-- Proyecto: **LIMS-QC**  
-- Equipo: [Tu nombre] (Owner)  
-- Cliente: Yaneth Cardoza
-
----
-
-## 📜 Licencia
-MIT — ver `LICENSE` (añade archivo si aplica).
