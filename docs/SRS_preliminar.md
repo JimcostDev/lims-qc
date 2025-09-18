@@ -1,6 +1,6 @@
 # SRS - Sistema de Gestión de Calidad y LIMS (MVP)
 **Versión:** 0.1
-**Autor:** Equipo de Desarrollo
+**Autor:** Dev Team MRC
 **Fecha:** 2025-09-17
 
 ## 1. Introducción
