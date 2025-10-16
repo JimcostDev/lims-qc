@@ -1,88 +1,31 @@
 # lims-qc
 
-**LIMS-QC** — *Laboratory Information Management & Quality Control System*  
-Plantilla / repositorio inicial para el desarrollo de un SGC/LIMS alineado con **ISO 15189:2022**. Pensado para arrancar rápido (MVP) y escalar: control documental, trazabilidad de muestras y auditoría.
+**LIMS-QC** — *Laboratory Information Management System & Quality Control*
+
+Repositorio de documentación y gestión del proyecto **LIMS-QC** – Sistema de Gestión de Calidad y Trazabilidad de Muestras Clínicas conforme a la norma **ISO 15189:2022**.
+
+Este proyecto fue liderado en el diseño e implementación inicial de un Sistema de Gestión de Calidad (SGQ/LIMS) con un equipo de tres desarrolladores, definiendo la arquitectura, desarrollando módulos funcionales de autenticación (JWT), gestionando el proyecto mediante metodologías ágiles e integración continua (CI/CD), y elaborando entregables técnicos (SRS, backlog, user stories).
 
 ---
 
-## ✅ Características (MVP)
-- Gestión documental con versionado (subida, historial, descargas).  
-- Registro y trazabilidad de muestras (generación de `sample_code` + QR).  
-- Gestión de usuarios y roles (RBAC).  
-- Audit logs append-only (motor flexible: MongoDB recomendado).  
-- Reportes básicos (PDF / export Excel).  
-- API REST `/api/v1` con documentación OpenAPI (FastAPI).
+## 📦 Repositorios asociados
 
----
-
-## 🧩 Stack propuesto
-- **Backend:** FastAPI (Python)   
-- **DB principal:** PostgreSQL (recomendado)  
-- **Audit logs / events:** MongoDB (opcional o complemento)  
-- **Frontend:** Astro + React + Tailwind *o* React + Vite + Tailwind  
-- **Storage de archivos:** local `uploads/` (MVP) → MinIO / S3 a producción  
-- **Contenerización:** Docker / docker-compose  
-- **Tests:** pytest, pytest-asyncio
-
-> Nota: Se puede implementar todo en Mongo: viable para MVP pero exigiría disciplina (transacciones, validaciones JSON Schema, índices, políticas de auditoría).
-
----
-
-
-## 🛠️ Instalación local (rápida)
-```bash
-# clonar
-git clone https://github.com/JimcostDev/lims-qc.git
-cd lims-qc
-
-# crear venv
-python -m venv venv
-source venv/bin/activate    # linux/mac
-# venv\Scripts\activate     # windows
-
-# instalar dependencias
-pip install -r requirements.txt
-```
-
----
-
-
-## 🔐 Autenticación y RBAC
-- Sistema con JWT (python-jose), rutas protegidas por dependencias.  
-- Roles: `admin`, `quality`, `technician`, `auditor`, `viewer`.  
-- Implementar middleware/dependencies para validar permisos en endpoints.
-
----
-
-## 📁 Almacenamiento de archivos
-- MVP: `uploads/` local.  
-- Producción: MinIO o S3.  
-- Guarda metadata en DB (`document_versions`) y path/URL al archivo.
-
----
-
-## 🧪 Tests
-```bash
-pytest -q
-# Para tests async
-pytest -q --disable-warnings
-```
-
----
-
-## 📋 Roadmap (resumido)
-- Sprint 1: Auth/RBAC + CRUD Documentos + Audit logs  
-- Sprint 2: Registro pacientes + muestras + QR generation  
-- Sprint 3: Versioning completo + alertas vencimiento + tests  
-- Sprint 4: Results + PDF reports  
-- Sprint 5: Auditorías / NC workflows / dashboards
+- **API Backend:** [https://github.com/JimcostDev/lims-qc-api](https://github.com/JimcostDev/lims-qc-api)
+- **Frontend:** [https://github.com/JimcostDev/lims-qc-ui](https://github.com/JimcostDev/lims-qc-ui)
+- **Demo:** [https://lims-qc-ui.vercel.app/](https://lims-qc-ui.vercel.app/)
 
 ---
 
 ## 🧭 Cómo contribuir
-1. Crea un issue o toma una tarea del proyecto.  
-2. `git checkout -b feat/<issue-id>-short-desc`  
-3. Tests y lint antes de PR.  
+
+1. Crea un issue o toma una tarea del proyecto.
+2. `git checkout -b feat/<issue-id>-short-desc`
+3. Tests y lint antes de PR.
 4. PR con descripción, screenshots, y referencias a issues.
 
+---
 
+## 📚 Referencias
+
+- Estándar: [ISO 15189:2022](https://www.iso.org/standard/76677.html)
+- Tecnologías: FastAPI, Astro, React, Tailwind, MongoDB
